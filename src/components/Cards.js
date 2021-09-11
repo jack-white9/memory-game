@@ -1,31 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../themes/Cards.css';
 
 const Cards = ({setScore}) => {
-    const cardArray = [1,2,3,4,5,6,7,8,9,10,11,12];
+    const [randomArray, updateRandomArray] = useState([]);
 
-    let updatedArray = [1,2,3,4,5,6,7,8,9,10,11,12];
-    useEffect(function randomiseCards() {
-        updatedArray = [];
+    useEffect(() => {
+        document.body.querySelector('.cardContainer').innerHTML = '';
+        let newArray = [];
         for (let i = 0; i < 12; i++) {
-            let randomNum = parseInt(Math.random() * 12);
-            if (updatedArray.includes(cardArray[randomNum])) {
+            let randomNum = parseInt(Math.random() * 12 + 1);
+            if (newArray.includes(randomNum)) {
                 i -= 1;
             } else {
-                updatedArray.push(cardArray[randomNum])
+                newArray.push(randomNum)
             }
         }
-        console.log(updatedArray);
-    });
+        updateRandomArray(randomArray.concat(newArray));
+    }, [setScore]);
 
     return (
-        <div>
-            <section className="cardContainer"> 
-                {updatedArray.map((card) => {
-                    return <button className="card" onClick={setScore}>{card}</button>;
-                })}
-            </section>
-        </div>
+        <section className="cardContainer">
+            {randomArray.map((num) => {
+                return <button className="card" onClick={setScore}>{num}</button>
+            })}
+        </section>
     );
 }
 
