@@ -1,7 +1,23 @@
+import React, { useState } from 'react';
 import './themes/App.css';
+import Header from './components/Header';
+import Score from './components/Score';
+import Cards from './components/Cards';
 
 function App() {
-    return(<div>Hello</div>)
+    const [score, setScore] = useState(0);
+
+    return(
+        <section className="appContainer">
+            <section className="headerContainer">
+                <Header />
+                <Score score={score}/>
+            </section>
+            <section className="mainContainer">
+                <Cards setScore={() => setScore(score + 1)}/>
+            </section>
+        </section>
+    );
 }
 
 export default App;
