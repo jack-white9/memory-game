@@ -1,0 +1,10 @@
+.scoreContainer {
+    display: flex;
+    align-items: center;
+}
+
+.score {
+    color: white;
+    font-family: sans-serif;
+    margin-left: 2rem;
+}
