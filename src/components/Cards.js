@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import '../themes/Cards.css';
 
-const Cards = ({setScore}) => {
+let clickedNums = []; // This global variable is a really ugly code smell but it was the only way to make the clickedNums stop emptying on each click. Revise later.
+
+const Cards = ({setScore, resetScore}) => {
     const [randomArray, updateRandomArray] = useState([]);
+    
+    function checkPrevClick(card) {
+        if (clickedNums.includes(card.target.textContent)) {
+            resetScore();
+            clickedNums = [];
+        } else {
+            clickedNums.push(card.target.textContent);
+        }
+    }
 
     useEffect(() => {
         document.body.querySelector('.cardContainer').innerHTML = '';
@@ -21,7 +32,13 @@ const Cards = ({setScore}) => {
     return (
         <section className="cardContainer">
             {randomArray.map((num) => {
-                return <button className="card" onClick={setScore}>{num}</button>
+                return <button 
+                            className="card" 
+                            onClick={(card) => {
+                                setScore();
+                                checkPrevClick(card);
+                            }}
+                        >{num}</button>
             })}
         </section>
     );

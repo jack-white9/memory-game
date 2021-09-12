@@ -14,7 +14,10 @@ function App() {
                 <Score score={score}/>
             </section>
             <section className="mainContainer">
-                <Cards setScore={() => setScore(score + 1)}/>
+                <Cards 
+                    setScore={() => setScore(score + 1)} 
+                    resetScore={() => setScore(score - score)}
+                />
             </section>
         </section>
     );
